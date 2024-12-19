@@ -29,6 +29,7 @@ void remove_negativo(No *F)
         else aux = aux->prox;
     }
 }
+
 void libera_lista(No *lista) {
     No *aux;
     while (lista != NULL) {
@@ -72,7 +73,6 @@ No* insere_pilha(No* topo, int valor)
 
     return novo_no; 
 }
-
 
 No *intercala_pilha(No *p1, No *p2)
 {
