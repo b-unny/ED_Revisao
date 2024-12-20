@@ -74,6 +74,7 @@ void contar_pares(int vet[], int n)
         if(frequencia[vet[i]]%2 != 0)
         {
             printf("%d ", vet[i]);
+            frequencia[vet[i]] = 0;
             todos = 0;
         }
     }
@@ -103,49 +104,40 @@ Lista *move_menor_inicio(Lista *l)
         aux = aux->prox;
 
     aux->prox = novo->prox;
-    novo->prox = l->prox;
+    novo->prox = l;
     l = novo;
     
     return l;
 }
 
 int main() {
-    // Testando a lista encadeada
+    
     Lista *lista = NULL;
 
-    // Inserindo elementos
     lista = inserir(lista, 5);
     lista = inserir(lista, 3);
+    lista = inserir(lista, 8);
+    lista = inserir(lista, 2);
     lista = inserir(lista, 7);
     lista = inserir(lista, 2);
 
     printf("Lista original:\n");
     imprimir(lista);
 
-    // Movendo o menor elemento para o início
     lista = move_menor_inicio(lista);
     printf("Lista após mover o menor elemento para o início:\n");
     imprimir(lista);
 
-    // Testando bubble_sort e contar_pares
-    int vetor[] = {4, 3, 7, 4, 3, 7, 5};
-    int tamanho = sizeof(vetor) / sizeof(vetor[0]);
+    int vet[] = {4, 3, 8, 7, 4, 3, 7, 5, 8, 1, 8};
+    int tam = sizeof(vet) / sizeof(vet[0]);
 
     printf("Vetor original:\n");
-    for (int i = 0; i < tamanho; i++) {
-        printf("%d ", vetor[i]);
-    }
+    for (int i = 0; i < tam; i++)
+        printf("%d ", vet[i]);
     printf("\n");
 
-    printf("Frequência dos elementos sem pares:\n");
-    contar_pares(vetor, tamanho);
-
-    printf("\nVetor ordenado:\n");
-    bubble_sort(vetor, tamanho);
-    for (int i = 0; i < tamanho; i++) {
-        printf("%d ", vetor[i]);
-    }
-    printf("\n");
+    printf("Elementos sem pares: ");
+    contar_pares(vet, tam);
 
     return 0;
 }
