@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// auxiliares 
 typedef struct lista{
     int info;
     struct lista *prox;
@@ -13,8 +14,19 @@ Lista* inserir(Lista *l, int valor) {
         exit(1);
     }
     novo->info = valor;
-    novo->prox = l;
-    return novo;
+    novo->prox = NULL;
+
+    if (l == NULL)  return novo;
+
+    // Encontrar o último nó
+    Lista *aux = l;
+    while (aux->prox != NULL)
+        aux = aux->prox;
+
+    // Inserir no fim
+    aux->prox = novo;
+
+    return l;
 }
 
 void imprimir(Lista *l) {
@@ -44,6 +56,7 @@ void bubble_sort(int vet[], int tam)
     }
 }
 
+// Questao 1
 void contar_pares(int vet[], int n)
 {
     if(n==0) return;
@@ -67,6 +80,7 @@ void contar_pares(int vet[], int n)
     if(todos) printf("Todos possuem pares.\n");
 }
 
+// Questao 2
 Lista *move_menor_inicio(Lista *l)
 {
     if(l==NULL || l->prox==NULL) return l;
@@ -82,6 +96,7 @@ Lista *move_menor_inicio(Lista *l)
             min = aux->info;
             novo = aux;
         }
+        aux = aux->prox;
     }
     aux = l;
     while(aux->prox->info != min)
@@ -94,32 +109,43 @@ Lista *move_menor_inicio(Lista *l)
     return l;
 }
 
-int main()
-{
-    printf("Teste 1\n");
-    int vet1[]={5,1,1,3,3,5,5};
-    int vet2[]={1,3,5,1,5,5,2,2};
+int main() {
+    // Testando a lista encadeada
+    Lista *lista = NULL;
 
-    contar_pares(vet1, 7);
-    contar_pares(vet2, 8);
+    // Inserindo elementos
+    lista = inserir(lista, 5);
+    lista = inserir(lista, 3);
+    lista = inserir(lista, 7);
+    lista = inserir(lista, 2);
 
-    printf("Teste 1\n");
-    Lista *lista=NULL;
-    for(int i=0; i<10; i++)
-    {
-        int num;
-        scanf("%d", &num);
-        inserir(lista, num);
-    }
-    move_menor_inicio(lista);
+    printf("Lista original:\n");
     imprimir(lista);
 
-    Lista *aux;
-    while (lista != NULL) {
-        aux = lista;
-        lista = lista->prox;
-        free(aux);
+    // Movendo o menor elemento para o início
+    lista = move_menor_inicio(lista);
+    printf("Lista após mover o menor elemento para o início:\n");
+    imprimir(lista);
+
+    // Testando bubble_sort e contar_pares
+    int vetor[] = {4, 3, 7, 4, 3, 7, 5};
+    int tamanho = sizeof(vetor) / sizeof(vetor[0]);
+
+    printf("Vetor original:\n");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", vetor[i]);
     }
+    printf("\n");
+
+    printf("Frequência dos elementos sem pares:\n");
+    contar_pares(vetor, tamanho);
+
+    printf("\nVetor ordenado:\n");
+    bubble_sort(vetor, tamanho);
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
 
     return 0;
 }
