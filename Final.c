@@ -125,7 +125,7 @@ int main() {
     imprimir(lista);
 
     lista = move_menor_inicio(lista);
-    printf("Lista após mover o menor elemento para o início:\n");
+    printf("Lista apos mover o menor elemento para o inicio:\n");
     imprimir(lista);
 
     int vet[] = {4, 3, 8, 7, 4, 3, 7, 5, 8, 1, 8};
